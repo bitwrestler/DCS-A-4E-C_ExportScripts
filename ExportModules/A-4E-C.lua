@@ -1,7 +1,7 @@
 -- Module Name Export
 
 ExportScript.FoundDCSModule = true
-ExportScript.Version.A4E = "1.2.X"
+ExportScript.Version.A4E = "1.2.1"
 
 ExportScript.ConfigEveryFrameArguments = 
 {
@@ -23,7 +23,7 @@ ExportScript.ConfigArguments =
 	based on "clickabledata.lua"
 	]]
 	
-	[709] = "%1d" --Master Arm switch
+	[709] = "%1d" --Master Arm switch (Device 3 Command 3003 ID 709
 }
 
 -----------------------------

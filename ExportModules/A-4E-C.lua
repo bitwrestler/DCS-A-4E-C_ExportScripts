@@ -103,7 +103,7 @@ function ExportScript.ProcessDACConfigLowImportance(mainPanelDevice)
 		ExportScript.Tools.WriteToLog(ltmp2..': '..ExportScript.Tools.dump(ltmp1))
 	end
 	]]
---[[
+
 	-- getmetatable get function name from devices
 	local ltmp1 = 0
 	for ltmp2 = 1, 70, 1 do
@@ -111,7 +111,6 @@ function ExportScript.ProcessDACConfigLowImportance(mainPanelDevice)
 		ExportScript.Tools.WriteToLog(ltmp2..': '..ExportScript.Tools.dump(ltmp1))
 		ExportScript.Tools.WriteToLog(ltmp2..' (metatable): '..ExportScript.Tools.dump(getmetatable(ltmp1)))
 	end
-]]
 end
 
 -----------------------------

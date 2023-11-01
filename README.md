@@ -1,4 +1,4 @@
-# DCS-A-4E-C_ExportScripts
+# DCS-A-4E-C ExportScript
 DCS Export-Scripts configuration for the community A-4E-C plane
 
 This is a work in porgress to specify a valid DCS Export-Scripts (https://github.com/s-d-a/DCS-ExportScripts) script for the Community Edition A-4E-C aircraft (https://github.com/heclak/community-a4e-c).

@@ -76,6 +76,25 @@ function ExportScript.ProcessIkarusDCSConfigLowImportance(mainPanelDevice)
 	ExportScript.Tools.SendData(2000, string.format("%7.3f", lUHFRadio:get_frequency()/1000000)) -- <- special function for get frequency data
 	ExportScript.Tools.SendData(2000, ExportScript.Tools.RoundFreqeuncy((UHF_RADIO:get_frequency()/1000000))) -- ExportScript.Tools.RoundFreqeuncy(frequency (MHz|KHz), format ("7.3"), PrefixZeros (false), LeastValue (0.025))
 	]]
+	
+	ExportScript.Tools.WriteToLog('list_cockpit_params(): '..ExportScript.Tools.dump(list_cockpit_params()))
+	ExportScript.Tools.WriteToLog('CMSP: '..ExportScript.Tools.dump(list_indication(7)))
+	
+	-- list_indication get the value of cockpit displays
+	local ltmp1 = 0
+	for ltmp2 = 0, 20, 1 do
+		ltmp1 = list_indication(ltmp2)
+		ExportScript.Tools.WriteToLog(ltmp2..': '..ExportScript.Tools.dump(ltmp1))
+	end
+
+
+	-- getmetatable get function name from devices
+	local ltmp1 = 0
+	for ltmp2 = 1, 70, 1 do
+		ltmp1 = GetDevice(ltmp2)
+		ExportScript.Tools.WriteToLog(ltmp2..': '..ExportScript.Tools.dump(ltmp1))
+		ExportScript.Tools.WriteToLog(ltmp2..' (metatable): '..ExportScript.Tools.dump(getmetatable(ltmp1)))
+	end
 end
 
 function ExportScript.ProcessDACConfigLowImportance(mainPanelDevice)
@@ -92,17 +111,16 @@ function ExportScript.ProcessDACConfigLowImportance(mainPanelDevice)
 	]]
 
 	--=====================================================================================
-	--[[
 	ExportScript.Tools.WriteToLog('list_cockpit_params(): '..ExportScript.Tools.dump(list_cockpit_params()))
 	ExportScript.Tools.WriteToLog('CMSP: '..ExportScript.Tools.dump(list_indication(7)))
 	
-	-- list_indication get tehe value of cockpit displays
+	-- list_indication get the value of cockpit displays
 	local ltmp1 = 0
 	for ltmp2 = 0, 20, 1 do
 		ltmp1 = list_indication(ltmp2)
 		ExportScript.Tools.WriteToLog(ltmp2..': '..ExportScript.Tools.dump(ltmp1))
 	end
-	]]
+
 
 	-- getmetatable get function name from devices
 	local ltmp1 = 0

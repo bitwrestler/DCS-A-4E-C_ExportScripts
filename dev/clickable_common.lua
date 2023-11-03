@@ -1,0 +1,1 @@
+C:/Program Files (x86)/Steam/steamapps/common/DCSWorld/Scripts/Aircrafts/_Common/Cockpit/clickable_common.lua

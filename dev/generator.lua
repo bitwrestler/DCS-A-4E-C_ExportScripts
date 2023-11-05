@@ -1,5 +1,3 @@
 
-require("generate_globals")
-dofile("command_defs.lua")
-
+require("generator_globals")
 print("Gear->",device_commands.Gear)

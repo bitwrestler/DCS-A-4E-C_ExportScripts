@@ -55,7 +55,7 @@ local function table_invert(t)
  end
 
 local invert_devices = table_invert(devices)
-
+local grpbyDeviceTable = {}
 for k,v in pairs(elements) do
     if(v.arg == nil or v.arg[1] == nil or v.device == nil) then
         goto mycontinue
@@ -70,6 +70,18 @@ for k,v in pairs(elements) do
     local range = ifNilFirstEle(v.arg_lim)
 
     local numeric_type = convertControl(command, increment, range)
-    io.write("[",dcsid, "] = \"",numeric_type,"\"  -- ", desc, " (Device ",device_name, "/", device, " Command/Button ", command, " ID ", dcsid , " Increment ",increment," Range ",range[1],"-",range[2],")","\r\n")
+    local defintionStr = "["..dcsid.. "] = \""..numeric_type.."\"  -- ".. desc.. " (Device "..device_name.. "/".. device.. " Command/Button ".. command.. " ID ".. dcsid .. " Increment "..increment.." Range "..range[1].."-"..range[2]..")"
+    
+    if grpbyDeviceTable[device] == nil then grpbyDeviceTable[device] = {} end
+    grpbyDeviceTable[device][#grpbyDeviceTable[device]+1] =  defintionStr
+
     ::mycontinue::
+end
+
+for D,EleTable in pairs(grpbyDeviceTable) do
+    local i = 1
+    while(EleTable[i]) do
+        print(EleTable[i])
+        i = i+1
+    end
 end

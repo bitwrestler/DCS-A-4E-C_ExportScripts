@@ -35,7 +35,7 @@ end
 
 
 local function convertControl(cmd,inc,rng)
-    if(isNumeric(inc) and (inc % 1 > 0) ) then
+    if(isNumeric(inc) and ((inc % 1 > 0) or (rng[1] % 1 > 0) ) ) then
         if ((rng[1] % .1) > 0) then
             return "%.1f"
         else 

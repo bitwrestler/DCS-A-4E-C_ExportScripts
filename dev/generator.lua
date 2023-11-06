@@ -70,7 +70,7 @@ for k,v in pairs(elements) do
     local range = ifNilFirstEle(v.arg_lim)
 
     local numeric_type = convertControl(command, increment, range)
-    local defintionStr = "["..dcsid.. "] = \""..numeric_type.."\"  -- ".. desc.. " (Device "..device_name.. "/".. device.. " Command/Button ".. command.. " ID ".. dcsid .. " Increment "..increment.." Range "..range[1].."-"..range[2]..")"
+    local defintionStr = "["..dcsid.. "] = \""..numeric_type.."\",  -- ".. desc.. " (Device "..device_name.. "/".. device.. " Command/Button ".. command.. " ID ".. dcsid .. " Increment "..increment.." Range "..range[1].."-"..range[2]..")"
     
     if grpbyDeviceTable[device] == nil then grpbyDeviceTable[device] = {} end
     grpbyDeviceTable[device][#grpbyDeviceTable[device]+1] =  defintionStr

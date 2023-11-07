@@ -1,7 +1,7 @@
 -- Module Name Export
 
 ExportScript.FoundDCSModule = true
-ExportScript.Version.A4E = "1.2.1"
+ExportScript.Version.A4E = "2.2.0" --matches 2.2. beta of A-4 model
 
 ExportScript.ConfigEveryFrameArguments = 
 {
@@ -163,7 +163,6 @@ ExportScript.ConfigArguments =
 	[507] = "%1d",  -- APR-27 Test (Device RWR/31 Command/Button 3116 ID 507 Increment 1 Range 0-1)
 	[501] = "%1d",  -- APR-27 Switch (Device RWR/31 Command/Button 3115 ID 501 Increment 1 Range 0-1)
 	[504] = "%1d",  -- APR-25 Switch (Device RWR/31 Command/Button 3113 ID 504 Increment 1 Range 0-1)
-	
 }
 
 -----------------------------

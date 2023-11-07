@@ -3,6 +3,14 @@
 ExportScript.FoundDCSModule = true
 ExportScript.Version.A4E = "2.2.0" --matches 2.2. beta of A-4 model
 
+--[[
+So the A-4 community model uses dynamically numbered DCS ids and commands.
+That means that if a new entry is inserted in the middle of the list, it will push all the numbers after it.
+That is a bit of a problem for how ExportScripts works.
+Pratically this means that a newer version of the A-4 model could break not only these definitions of the clickable items
+but also will break other things that rely upon those ids not changing (i.e. StreamDeck DCS plugin)
+]]
+
 ExportScript.ConfigEveryFrameArguments = 
 {
 	--[[

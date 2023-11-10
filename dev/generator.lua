@@ -33,6 +33,28 @@ local function ifNilFirstEle(tableVal)
     end
 end
 
+local function spairs(t, order)
+    -- collect the keys
+    local keys = {}
+    for k in pairs(t) do keys[#keys+1] = k end
+
+    -- if order function given, sort by it by passing the table and keys a, b,
+    -- otherwise just sort the keys 
+    if order then
+        table.sort(keys, function(a,b) return order(t, a, b) end)
+    else
+        table.sort(keys)
+    end
+
+    -- return the iterator function
+    local i = 0
+    return function()
+        i = i + 1
+        if keys[i] then
+            return keys[i], t[keys[i]]
+        end
+    end
+end
 
 local function convertControl(cmd,inc,rng)
     if(isNumeric(inc) and ((inc % 1 > 0) or (rng[1] % 1 > 0) ) ) then
@@ -81,7 +103,7 @@ for k,v in pairs(elements) do
     if(v.arg == nil or v.arg[1] == nil or v.device == nil) then
         goto mycontinue
     end
-    local dcsid = v.arg[1]
+    local dcsid = tonumber(v.arg[1])
     local dcsid_name = lookupElementNameByID(elements, dcsid)
     local device = ifnil(v.device)
 
@@ -95,13 +117,15 @@ for k,v in pairs(elements) do
     local numeric_type = convertControl(command, increment, range)
     local defintionStr = "["..dcsid.. "] = \""..numeric_type.."\",  -- ".. desc.. " (Device "..device_name.. "/".. device.. " Command/Button ".. command_name .. "/".. command.. " ID ".. dcsid_name .. "/" .. dcsid .. " Increment "..increment.." Range "..range[1].."-"..range[2]..")"
     
-    if grpbyDeviceTable[device] == nil then grpbyDeviceTable[device] = {} end
-    grpbyDeviceTable[device][#grpbyDeviceTable[device]+1] =  defintionStr
+    local grpKey = dcsid
+
+    if grpbyDeviceTable[grpKey] == nil then grpbyDeviceTable[grpKey] = {} end
+    grpbyDeviceTable[grpKey][#grpbyDeviceTable[grpKey]+1] =  defintionStr
 
     ::mycontinue::
 end
 
-for D,EleTable in pairs(grpbyDeviceTable) do
+for D,EleTable in spairs(grpbyDeviceTable) do
     local i = 1
     while(EleTable[i]) do
         print(EleTable[i])

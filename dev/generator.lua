@@ -56,6 +56,7 @@ local function spairs(t, order)
     end
 end
 
+--[[ TODO, this doesn't work correctly. It might not be possible to derive the numeric format from the data?  ]]
 local function convertControl(cmd,inc,rng)
     if(isNumeric(inc) and ((inc % 1 > 0) or (rng[1] % 1 > 0) ) ) then
         if ((rng[1] % .1) > 0) then

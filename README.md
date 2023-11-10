@@ -7,4 +7,10 @@ The purpose is so that Stream Deck with the DCS plugin can be used to control th
 
 
 /dev - contains sample files and scripts to pull debugging data and generate settings
-/ExportModules - is the Export Script
+    generator.lua - script to generate some lua code tht defines the ExportScript clickabledata elements
+    generator_globals.lua - "header" includes needed for generator.lua to be able to load aircraft .lua script
+    i_18n.lua - fake script in order to get aircraft script to compile
+    most other scripts - linked from the aircraft dir
+/dev/samples - just a couple other working export scripts and aircraft clickabledata used as examples
+/ExportModules - dir for the Export Script
+    A-4E-C.lua - export script

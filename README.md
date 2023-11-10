@@ -3,7 +3,7 @@ DCS Export-Scripts configuration for the community A-4E-C plane
 
 This is a work in progress to specify a valid DCS Export-Scripts (https://github.com/s-d-a/DCS-ExportScripts) script for the Community Edition A-4E-C aircraft (https://github.com/heclak/community-a4e-c).
 
-The purpose is so that Stream Deck with the DCS plugin can be used to control the aircraft. Export-Scripts has all official planes, but I could not find one for the A-4E-C.
+The purpose is so that Stream Deck, with the DCS plugin (https://github.com/enertial/streamdeck-dcs-interface), can be used to control the aircraft. Of course, once the export script is made, it can be used for lots of things. Export-Scripts has all official planes, but I could not find one for the A-4E-C.
 
 
 /dev - contains sample files and scripts to pull debugging data and generate settings  

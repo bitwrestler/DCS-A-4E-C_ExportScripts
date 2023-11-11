@@ -68,7 +68,7 @@ ExportScript.ConfigArguments =
 [161] = "%1d",  -- AFCS Engage Switch (Device AFCS/27 Command/Button afcs_engage/3089 ID PNT_161/161 Increment 1 Range 0-1)
 [162] = "%1d",  -- AFCS Heading Select Switch (Device AFCS/27 Command/Button afcs_hdg_sel/3090 ID PNT_162/162 Increment 1 Range 0-1)
 [163] = "%1d",  -- AFCS Altitude Switch (Device AFCS/27 Command/Button afcs_alt/3091 ID PNT_163/163 Increment 1 Range 0-1)
-[164] = "%1d",  -- AFCS Heading Select Pull-to-Set Knob (Device AFCS/27 Command/Button afcs_hdg_set/3092 ID PNT_164/164 Increment 0.0 Range 0-1)
+[164] = "%.2f",  -- AFCS Heading Select Pull-to-Set Knob (Device AFCS/27 Command/Button afcs_hdg_set/3092 ID PNT_164/164 Increment 0.0 Range 0-1)
 [165] = "%1d",  -- AFCS Stability Augmentation Switch (Yaw Damper) (Device AFCS/27 Command/Button afcs_stab_aug/3093 ID PNT_165/165 Increment 1 Range 0-1)
 [166] = "%1d",  -- AFCS Aileron Trim Switch (unimplemented) (Device AFCS/27 Command/Button afcs_ail_trim/3094 ID PNT_166/166 Increment 1 Range 0-1)
 [170] = "%.1f",  -- AN/APN-153 Doppler Navigation Radar Mode Switch (Device NAV/23 Command/Button doppler_select/3045 ID PNT_170/170 Increment -0.1 Range 0-0.4)
@@ -171,7 +171,6 @@ ExportScript.ConfigArguments =
 [1241] = "%1d",  -- Emergency Stores Release Handle (Device WEAPON_SYSTEM/6 Command/Button emer_bomb_release/3027 ID PNT_1241/1241 Increment 1 Range 0-1)
 [1242] = "%1d",  -- Manual Flight Control Handle (Device HYDRAULIC_SYSTEM/7 Command/Button man_flt_control_override/3136 ID PNT_1242/1242 Increment 1 Range 0-1)
 [1243] = "%1d",  -- Emergency Generator Release Handle (Device ELECTRIC_SYSTEM/3 Command/Button emer_gen_deploy/3023 ID PNT_1243/1243 Increment 1 Range 0-1)
-
 }
 
 -----------------------------
@@ -245,6 +244,8 @@ function ExportScript.ProcessIkarusDCSConfigLowImportance(mainPanelDevice)
 		ExportScript.Tools.WriteToLog(ltmp2..' (metatable): '..ExportScript.Tools.dump(getmetatable(ltmp1)))
 	end
 	]]
+	ExportScript.ReadHeadingSelect(mainPanelDevice)
+	
 end
 
 function ExportScript.ProcessDACConfigLowImportance(mainPanelDevice)
@@ -281,8 +282,20 @@ function ExportScript.ProcessDACConfigLowImportance(mainPanelDevice)
 		ExportScript.Tools.WriteToLog(ltmp2..' (metatable): '..ExportScript.Tools.dump(getmetatable(ltmp1)))
 	end
 	]]
+	
+	ExportScript.ReadHeadingSelect(mainPanelDevice)
 end
 
 -----------------------------
 --     Custom functions    --
 -----------------------------
+
+function round(num, numDecimalPlaces) --http://lua-users.org/wiki/SimpleRound
+  local mult = 10^(numDecimalPlaces or 0)
+  return math.floor(num * mult + 0.5) / mult
+end
+
+function ExportScript.ReadHeadingSelect(mainPanelDevice)
+--ExportScript.Tools.SendData(2161, mainPanelDevice:get_argument_value(167) .. "-" .. mainPanelDevice:get_argument_value(168) .. "-" .. mainPanelDevice:get_argument_value(169) )
+ExportScript.Tools.SendData(2162, round((mainPanelDevice:get_argument_value(167)*1000) + (mainPanelDevice:get_argument_value(168)*100) + (mainPanelDevice:get_argument_value(169)*10), 0) )
+end

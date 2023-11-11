@@ -1,0 +1,1 @@
+C:/Users/eric/Documents/src_thirdparty/A4-E-C/A-4E-C/Cockpit/Scripts/mainpanel_init.lua

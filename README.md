@@ -7,7 +7,7 @@ The purpose is so that Stream Deck, with the DCS plugin (https://github.com/ener
 
 
 /dev - contains sample files and scripts to pull debugging data and generate settings  
-&emsp;GenerateExportConfigArgs.lua - script to generate some lua code tht defines the ExportScript clickabledata elements  
+&emsp;GenerateExportConfigArgs.lua - script to generate some lua code that defines the ExportScript clickabledata elements  
 &emsp;generator_globals.lua - "header" includes and common functions needed for GenerateExportConfigArgs.lua to be able to load aircraft .lua script  
 &emsp;i_18n.lua - fake script in order to get aircraft script to compile  
 &emsp;most other scripts - linked from the aircraft dir  

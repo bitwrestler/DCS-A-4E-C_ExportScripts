@@ -163,10 +163,10 @@ ExportScript.ConfigArguments =
 [891] = "%1d",  -- Gunsight Day-Night Switch (Device GUNSIGHT/22 Command/Button GunsightDayNight/3029 ID PNT_891/891 Increment 1 Range 0-1)
 [892] = "%.2f",  -- Gunsight Elevation Control (Device GUNSIGHT/22 Command/Button GunsightKnob/3028 ID PNT_892/892 Increment 1.0 Range 0-1)
 [895] = "%.1f",  -- Gunsight Light Control (Device GUNSIGHT/22 Command/Button GunsightBrightness/3030 ID PNT_895/895 Increment 0 Range 0-1)
-[900] = "%.2f",  -- AN/ARN-52 TACAN Mode Switch (Device NAV/23 Command/Button tacan_mode/3069 ID PNT_900/900 Increment -0.1 Range 0-0.3)
+[900] = "%.1f",  -- AN/ARN-52 TACAN Mode Switch (Device NAV/23 Command/Button tacan_mode/3069 ID PNT_900/900 Increment -0.1 Range 0-0.3)
 [901] = "%.2f",  -- TACAN Channel 10s (Device NAV/23 Command/Button tacan_ch_major/3070 ID PNT_901/901 Increment -0.05 Range 0-0.6)
-[902] = "%.2f",  -- TACAN Channel 1s (Device NAV/23 Command/Button tacan_ch_minor/3071 ID PNT_902/902 Increment -0.1 Range 0-0.9)
-[903] = "%1d",  -- TACAN Volume (Device NAV/23 Command/Button tacan_volume/3072 ID PNT_903/903 Increment 0.0 Range -1-1)
+[902] = "%.1f",  -- TACAN Channel 1s (Device NAV/23 Command/Button tacan_ch_minor/3071 ID PNT_902/902 Increment -0.1 Range 0-0.9)
+[903] = "%.1f",  -- TACAN Volume (Device NAV/23 Command/Button tacan_volume/3072 ID PNT_903/903 Increment 0.0 Range -1-1)
 [1240] = "%1d",  -- Emergency Landing Gear Release Handle (Device GEAR/15 Command/Button emer_gear_release/3036 ID PNT_1240/1240 Increment 1 Range 0-1)
 [1241] = "%1d",  -- Emergency Stores Release Handle (Device WEAPON_SYSTEM/6 Command/Button emer_bomb_release/3027 ID PNT_1241/1241 Increment 1 Range 0-1)
 [1242] = "%1d",  -- Manual Flight Control Handle (Device HYDRAULIC_SYSTEM/7 Command/Button man_flt_control_override/3136 ID PNT_1242/1242 Increment 1 Range 0-1)
@@ -245,7 +245,7 @@ function ExportScript.ProcessIkarusDCSConfigLowImportance(mainPanelDevice)
 	end
 	]]
 	ExportScript.ReadHeadingSelect(mainPanelDevice)
-	
+	ExportScript.ReadTacan(mainPanelDevice)
 end
 
 function ExportScript.ProcessDACConfigLowImportance(mainPanelDevice)
@@ -284,6 +284,7 @@ function ExportScript.ProcessDACConfigLowImportance(mainPanelDevice)
 	]]
 	
 	ExportScript.ReadHeadingSelect(mainPanelDevice)
+	ExportScript.ReadTacan(mainPanelDevice)
 end
 
 -----------------------------
@@ -296,6 +297,15 @@ function round(num, numDecimalPlaces) --http://lua-users.org/wiki/SimpleRound
 end
 
 function ExportScript.ReadHeadingSelect(mainPanelDevice)
---ExportScript.Tools.SendData(2161, mainPanelDevice:get_argument_value(167) .. "-" .. mainPanelDevice:get_argument_value(168) .. "-" .. mainPanelDevice:get_argument_value(169) )
 ExportScript.Tools.SendData(2162, round((mainPanelDevice:get_argument_value(167)*1000) + (mainPanelDevice:get_argument_value(168)*100) + (mainPanelDevice:get_argument_value(169)*10), 0) )
+end
+
+function ExportScript.convertTACANVal(v)
+	return round(v / .05, 0)
+end
+
+function ExportScript.ReadTacan(mainPanelDevice)
+	local tens = ExportScript.convertTACANVal(round(mainPanelDevice:get_argument_value(901),2))
+	local ones = round( mainPanelDevice:get_argument_value(902)*10,0)
+	ExportScript.Tools.SendData(2901, tens..ones )
 end

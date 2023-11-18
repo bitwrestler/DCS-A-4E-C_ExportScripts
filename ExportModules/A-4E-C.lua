@@ -318,8 +318,16 @@ end
 function ExportScript.ReadUHF(mainPanelDevice)
 	local part1a = (220 + ExportScript.convertUHFVal(mainPanelDevice:get_argument_value(367)) )
 	local part1b = (mainPanelDevice:get_argument_value(368)*10)
-	
 	ExportScript.Tools.SendData(2367, round(part1a+part1b,0) .. "." .. round(mainPanelDevice:get_argument_value(369)*100,0) )
+end
+
+function ExportScript.ReadRippleInterval(mainPanelDevice)
+	local convertedBaseVal = 20 + (round(mainPanelDevice:get_argument_value(742),2)*200)
+	ExportScript.Tools.SendData(2742, convertedBaseVal)
+	local multraw = mainPanelDevice:get_argument_value(743)
+	local multiplier = 1
+	if multraw > 0 then multiplier = 10 end
+	ExportScript.Tools.SendData(2743, (convertedBaseVal * multiplier) .. "ms" )
 end
 
 function ExportScript.ReadAllCustom(mainPanelDevice)
@@ -327,4 +335,5 @@ function ExportScript.ReadAllCustom(mainPanelDevice)
 	ExportScript.ReadTacan(mainPanelDevice)
 	ExportScript.ReadUHFPreset(mainPanelDevice)
 	ExportScript.ReadUHF(mainPanelDevice)
+	ExportScript.ReadRippleInterval(mainPanelDevice)
 end

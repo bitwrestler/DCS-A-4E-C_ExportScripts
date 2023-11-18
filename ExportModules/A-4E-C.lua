@@ -107,10 +107,10 @@ ExportScript.ConfigArguments =
 [365] = "%.2f",  -- Radio Volume (Device RADIO/28 Command/Button arc51_volume/3099 ID PNT_365/365 Increment 0.5 Range 0-1)
 [366] = "%1d",  -- Radio Frequency Mode (Device RADIO/28 Command/Button arc51_xmitmode/3098 ID PNT_366/366 Increment 1 Range -1-1)
 [367] = "%.2f",  -- Radio Frequency 10 MHz (Device RADIO/28 Command/Button arc51_freq_XXooo/3102 ID PNT_367/367 Increment -0.05 Range 0-0.85)
-[368] = "%.2f",  -- Radio Frequency 1 MHz (Device RADIO/28 Command/Button arc51_freq_ooXoo/3103 ID PNT_368/368 Increment -0.1 Range 0-0.9)
+[368] = "%.1f",  -- Radio Frequency 1 MHz (Device RADIO/28 Command/Button arc51_freq_ooXoo/3103 ID PNT_368/368 Increment -0.1 Range 0-0.9)
 [369] = "%.2f",  -- Radio Frequency 50 kHz (Device RADIO/28 Command/Button arc51_freq_oooXX/3104 ID PNT_369/369 Increment -0.05 Range 0-0.95)
 [370] = "%1d",  -- Radio Squelch Disable (Device RADIO/28 Command/Button arc51_squelch/3100 ID PNT_370/370 Increment 1 Range 0-1)
-[372] = "%.2f",  -- AN/ARC-51A UHF Radio Mode Switch (Device RADIO/28 Command/Button arc51_mode/3097 ID PNT_372/372 Increment -0.1 Range 0-0.3)
+[372] = "%.1f",  -- AN/ARC-51A UHF Radio Mode Switch (Device RADIO/28 Command/Button arc51_mode/3097 ID PNT_372/372 Increment -0.1 Range 0-0.3)
 [390] = "%1d",  -- Gunpod Switch (Device WEAPON_SYSTEM/6 Command/Button gunpod_chargeclear/3012 ID PNT_390/390 Increment -1 Range -1-1)
 [391] = "%1d",  -- Gunpod Station LH Switch (Device WEAPON_SYSTEM/6 Command/Button gunpod_l/3009 ID PNT_391/391 Increment 1 Range 0-1)
 [392] = "%1d",  -- Gunpod Station CTR Switch (Device WEAPON_SYSTEM/6 Command/Button gunpod_c/3010 ID PNT_392/392 Increment 1 Range 0-1)
@@ -244,8 +244,7 @@ function ExportScript.ProcessIkarusDCSConfigLowImportance(mainPanelDevice)
 		ExportScript.Tools.WriteToLog(ltmp2..' (metatable): '..ExportScript.Tools.dump(getmetatable(ltmp1)))
 	end
 	]]
-	ExportScript.ReadHeadingSelect(mainPanelDevice)
-	ExportScript.ReadTacan(mainPanelDevice)
+	ExportScript.ReadAllCustom(mainPanelDevice)
 end
 
 function ExportScript.ProcessDACConfigLowImportance(mainPanelDevice)
@@ -282,9 +281,7 @@ function ExportScript.ProcessDACConfigLowImportance(mainPanelDevice)
 		ExportScript.Tools.WriteToLog(ltmp2..' (metatable): '..ExportScript.Tools.dump(getmetatable(ltmp1)))
 	end
 	]]
-	
-	ExportScript.ReadHeadingSelect(mainPanelDevice)
-	ExportScript.ReadTacan(mainPanelDevice)
+	ExportScript.ReadAllCustom(mainPanelDevice)
 end
 
 -----------------------------
@@ -304,8 +301,30 @@ function ExportScript.convertTACANVal(v)
 	return round(v / .05, 0)
 end
 
+function ExportScript.convertUHFVal(v)
+	return  ExportScript.convertTACANVal(v) * 10
+end
+
 function ExportScript.ReadTacan(mainPanelDevice)
 	local tens = ExportScript.convertTACANVal(round(mainPanelDevice:get_argument_value(901),2))
 	local ones = round( mainPanelDevice:get_argument_value(902)*10,0)
 	ExportScript.Tools.SendData(2901, tens..ones )
+end
+
+function ExportScript.ReadUHFPreset(mainPanelDevice)
+	ExportScript.Tools.SendData(2361,  ExportScript.convertTACANVal(mainPanelDevice:get_argument_value(361))+1)
+end
+
+function ExportScript.ReadUHF(mainPanelDevice)
+	local part1a = (220 + ExportScript.convertUHFVal(mainPanelDevice:get_argument_value(367)) )
+	local part1b = (mainPanelDevice:get_argument_value(368)*10)
+	
+	ExportScript.Tools.SendData(2367, round(part1a+part1b,0) .. "." .. round(mainPanelDevice:get_argument_value(369)*100,0) )
+end
+
+function ExportScript.ReadAllCustom(mainPanelDevice)
+	ExportScript.ReadHeadingSelect(mainPanelDevice)
+	ExportScript.ReadTacan(mainPanelDevice)
+	ExportScript.ReadUHFPreset(mainPanelDevice)
+	ExportScript.ReadUHF(mainPanelDevice)
 end

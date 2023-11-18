@@ -18,7 +18,7 @@ The purpose is so that Stream Deck, with the DCS plugin (https://github.com/ener
 <li>/dev/samples - just a couple other working export scripts and aircraft clickabledata used as examples (syumbolic links)</li>
 <li>/ExportModules - dir for the Export Script
     <ul>
-    <li>A-4E-C.lua - export script. This goes into the [Saved games]/[DCS dir]/Scripts/DCS-ExportScript/ExportModules directory. With DCS running and the A4E as your plane in a mission, these values are exported and, with something like teh SteeamDedck DCS plugin, allows the functoins of the plane to be remote controlled.</li>
+    <li>A-4E-C.lua - export script. This goes into the [Saved games]/[DCS dir]/Scripts/DCS-ExportScript/ExportModules directory. With DCS running and the A4E as your plane in a mission, these values are exported and, with something like the StreamDedck DCS plugin, allows the functions of the plane to be remote controlled.</li>
     </ul>
 </li>
 <li>/StreamDeck - StreamDeck profiles

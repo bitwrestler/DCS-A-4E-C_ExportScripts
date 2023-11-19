@@ -293,6 +293,18 @@ function round(num, numDecimalPlaces) --http://lua-users.org/wiki/SimpleRound
   return math.floor(num * mult + 0.5) / mult
 end
 
+function convert_tens(num)
+	return round(num*10, 0)
+end
+
+function ExportScript.ConcatArgumentsInTens(mainPanelDevice, arrayOfIDS)
+	ret = ""
+	for _,aID in ipairs(arrayOfIDS) do
+		ret = ret .. convert_tens( mainPanelDevice:get_argument_value(aID) )
+	end
+	return ret
+end
+
 function ExportScript.ReadHeadingSelect(mainPanelDevice)
 ExportScript.Tools.SendData(2162, round((mainPanelDevice:get_argument_value(167)*1000) + (mainPanelDevice:get_argument_value(168)*100) + (mainPanelDevice:get_argument_value(169)*10), 0) )
 end
@@ -334,6 +346,37 @@ function ExportScript.ReadFuelGauge(mainPanelDevice)
 	ExportScript.Tools.SendData(2580, round(mainPanelDevice:get_argument_value(580)*6600, 0) )
 end
 
+local CurrLatIDS = {178,179,180,181}
+local CurrLonIDS = { 184,185,186,187,188 }
+local DestLatIDS = {191,192,193,194}
+local DestLonIDS = {197,198,199,200,201}
+local WindSpeedIDS = {210,211,212}
+local WindDirIDS = {214,215,216}
+local MagVarIDS = {206,207}
+
+function ExportScript.ReadNavComputer(mainPanelDevice)
+	local latDirection = "N"
+	local lonDirection = "W"
+	if(mainPanelDevice:get_argument_value(182) > 0) then latDirection = "S" end
+	if(mainPanelDevice:get_argument_value(189) > 0) then lonDirection = "E" end
+	ExportScript.Tools.SendData(2178, ExportScript.ConcatArgumentsInTens(mainPanelDevice, CurrLatIDS) .. latDirection)
+	ExportScript.Tools.SendData(2184, ExportScript.ConcatArgumentsInTens(mainPanelDevice, CurrLonIDS) .. lonDirection)
+	
+	latDirection = "N"
+	lonDirection = "W"
+	if(mainPanelDevice:get_argument_value(195) > 0) then latDirection = "S" end
+	if(mainPanelDevice:get_argument_value(189) > 0) then lonDirection = "E" end	
+	ExportScript.Tools.SendData(2191, ExportScript.ConcatArgumentsInTens(mainPanelDevice, DestLatIDS) .. latDirection)
+	ExportScript.Tools.SendData(2197,ExportScript.ConcatArgumentsInTens(mainPanelDevice, DestLonIDS) .. lonDirection)
+	
+	ExportScript.Tools.SendData(2210, ExportScript.ConcatArgumentsInTens(mainPanelDevice, WindSpeedIDS))
+	ExportScript.Tools.SendData(2214, ExportScript.ConcatArgumentsInTens(mainPanelDevice, WindDirIDS))
+	
+	lonDirection = "W"
+	if(mainPanelDevice:get_argument_value(208) > 0) then lonDirection = "E" end
+	ExportScript.Tools.SendData(2206, ExportScript.ConcatArgumentsInTens(mainPanelDevice, MagVarIDS) .. lonDirection)
+end
+
 function ExportScript.ReadAllCustom(mainPanelDevice)
 	ExportScript.ReadHeadingSelect(mainPanelDevice)
 	ExportScript.ReadTacan(mainPanelDevice)
@@ -341,4 +384,6 @@ function ExportScript.ReadAllCustom(mainPanelDevice)
 	ExportScript.ReadUHF(mainPanelDevice)
 	ExportScript.ReadRippleInterval(mainPanelDevice)
 	ExportScript.ReadFuelGauge(mainPanelDevice)
+	ExportScript.ReadNavComputer(mainPanelDevice)
 end
+

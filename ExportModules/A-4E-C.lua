@@ -330,10 +330,15 @@ function ExportScript.ReadRippleInterval(mainPanelDevice)
 	ExportScript.Tools.SendData(2743, (convertedBaseVal * multiplier) .. "ms" )
 end
 
+function ExportScript.ReadFuelGauge(mainPanelDevice)
+	ExportScript.Tools.SendData(2580, round(mainPanelDevice:get_argument_value(580)*6600, 0) )
+end
+
 function ExportScript.ReadAllCustom(mainPanelDevice)
 	ExportScript.ReadHeadingSelect(mainPanelDevice)
 	ExportScript.ReadTacan(mainPanelDevice)
 	ExportScript.ReadUHFPreset(mainPanelDevice)
 	ExportScript.ReadUHF(mainPanelDevice)
 	ExportScript.ReadRippleInterval(mainPanelDevice)
+	ExportScript.ReadFuelGauge(mainPanelDevice)
 end

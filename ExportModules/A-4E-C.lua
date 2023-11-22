@@ -297,10 +297,14 @@ function convert_tens(num)
 	return round(num*10, 0)
 end
 
+function convert_tens2(num)
+	return math.floor(num*10)
+end
+
 function ExportScript.ConcatArgumentsInTens(mainPanelDevice, arrayOfIDS)
 	ret = ""
 	for _,aID in ipairs(arrayOfIDS) do
-		ret = ret .. convert_tens( mainPanelDevice:get_argument_value(aID) )
+		ret = ret .. convert_tens2( mainPanelDevice:get_argument_value(aID) )
 	end
 	return ret
 end
@@ -377,6 +381,12 @@ function ExportScript.ReadNavComputer(mainPanelDevice)
 	ExportScript.Tools.SendData(2206, ExportScript.ConcatArgumentsInTens(mainPanelDevice, MagVarIDS) .. lonDirection)
 end
 
+local DME_IDS = {785,784}
+
+function ExportScript.ReadDME(mainPanelDevice)
+	ExportScript.Tools.SendData(2785, ExportScript.ConcatArgumentsInTens(mainPanelDevice, DME_IDS) .. convert_tens(mainPanelDevice:get_argument_value(783)))
+end
+
 function ExportScript.ReadAllCustom(mainPanelDevice)
 	ExportScript.ReadHeadingSelect(mainPanelDevice)
 	ExportScript.ReadTacan(mainPanelDevice)
@@ -385,5 +395,6 @@ function ExportScript.ReadAllCustom(mainPanelDevice)
 	ExportScript.ReadRippleInterval(mainPanelDevice)
 	ExportScript.ReadFuelGauge(mainPanelDevice)
 	ExportScript.ReadNavComputer(mainPanelDevice)
+	ExportScript.ReadDME(mainPanelDevice)
 end
 

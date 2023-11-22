@@ -28,6 +28,9 @@ The purpose is so that Stream Deck, with the DCS plugin (https://github.com/ener
 </li>
 </ul>
 
+## Dynamic Numbering
+The A4 aircraft, like a few of the official ED aircraft, uses dynamic numbering for the devices, clickables, and ids. This means that if the order of any of those things changes (or if something is added or removed in the middle of the list), it will throw off this ExportScript (and therefore whatever device uses these exports). That is why I added a comprehensive comment after the numeric mapping. My hopes are that if something changes in a future A4 release, I can code a conversion script to translate to the new numbers. I certanily do not want to re-setup my StreamDeck again.
+
 ## Known Issues
 <ol>
 <li>

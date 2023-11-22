@@ -384,7 +384,11 @@ end
 local DME_IDS = {785,784}
 
 function ExportScript.ReadDME(mainPanelDevice)
-	ExportScript.Tools.SendData(2785, ExportScript.ConcatArgumentsInTens(mainPanelDevice, DME_IDS) .. convert_tens(mainPanelDevice:get_argument_value(783)))
+	if(mainPanelDevice:get_argument_value(786) > 0) then
+		ExportScript.Tools.SendData(2785, ExportScript.ConcatArgumentsInTens(mainPanelDevice, DME_IDS) .. convert_tens(mainPanelDevice:get_argument_value(783)))
+	else
+		ExportScript.Tools.SendData(2785, "OFF")
+	end
 end
 
 function ExportScript.ReadAllCustom(mainPanelDevice)

@@ -15,7 +15,7 @@ The purpose is so that Stream Deck, with the DCS plugin (https://github.com/ener
     <li>most other scripts - linked from the aircraft dir</li>
     </ul>
 </li>
-<li>/dev/samples - just a couple other working export scripts and aircraft clickabledata used as examples (syumbolic links)</li>
+<ul><li>/samples - just a couple other working export scripts and aircraft clickabledata used as examples (symbolic links)</li></ul>
 <li>/ExportModules - dir for the Export Script
     <ul>
     <li>A-4E-C.lua - export script. This goes into the [Saved games]/[DCS dir]/Scripts/DCS-ExportScript/ExportModules directory. With DCS running and the A4E as your plane in a mission, these values are exported and, with something like the Stream Deck DCS plugin, allows the functions of the plane to be remote controlled.</li>
@@ -23,7 +23,7 @@ The purpose is so that Stream Deck, with the DCS plugin (https://github.com/ener
 </li>
 <li>/StreamDeck - StreamDeck profiles
     <ul>
-    <li>DCS - A4.steamDecProfile - Stream Deck XL prfile for A4 using these exports</li>
+    <li>DCS - A4.steamDecProfile - Stream Deck XL profile for A4 using these exports</li>
     </ul>
 </li>
 </ul>
@@ -37,6 +37,6 @@ The A4 aircraft, like a few of the official ED aircraft, uses dynamic numbering 
 There is something strange about the ground Radar Mode knob and the Radar Tilt knob (left hand panel). Even though I believe the exports to be correct and the plane can be controlled (i.e. the knobs move when I hit a button on the Stream Deck and the correct values seem to be returned), those features do not actually function via the export. The Radar won't actually turn on or switch modes. The tilt doesn't actaully do anything. Nevertheless, the game controller setup works fine. So, in the supplied StreamDeck profile, I use a hot key to manipulate those controls instead of the normal DCS plugin route.
 </li>
 <li>
-The Radar Altimeter control and the Nav Computer controls are strange. They are buttons and rotation knobs in one. I could not figure out how to do both things with the Stream Deck DCS plugin. So, those are mqapped with hotkey control binds.
+The Radar Altimeter control and the Nav Computer controls are strange. They are buttons and rotation knobs in one. I could not figure out how to do both things with the Stream Deck DCS plugin. So, those are mapped with hotkey control binds.
 </li>
 </ol>

@@ -294,17 +294,17 @@ function round(num, numDecimalPlaces) --http://lua-users.org/wiki/SimpleRound
 end
 
 function convert_tens(num)
-	return round(num*10, 0)
+	return math.floor(num*10)
 end
 
-function convert_tens2(num)
-	return math.floor(num*10)
+function ExportScript.ReadBoolExportIn2K(mainPanelDevice, ID)
+	ExportScript.Tools.SendData(2000 + ID, round(mainPanelDevice:get_argument_value(ID),0))
 end
 
 function ExportScript.ConcatArgumentsInTens(mainPanelDevice, arrayOfIDS)
 	ret = ""
 	for _,aID in ipairs(arrayOfIDS) do
-		ret = ret .. convert_tens2( mainPanelDevice:get_argument_value(aID) )
+		ret = ret .. convert_tens( mainPanelDevice:get_argument_value(aID) )
 	end
 	return ret
 end
@@ -385,10 +385,22 @@ local DME_IDS = {785,784}
 
 function ExportScript.ReadDME(mainPanelDevice)
 	if(mainPanelDevice:get_argument_value(786) > 0) then
-		ExportScript.Tools.SendData(2785, ExportScript.ConcatArgumentsInTens(mainPanelDevice, DME_IDS) .. convert_tens(mainPanelDevice:get_argument_value(783)))
+		ExportScript.Tools.SendData(2785, ExportScript.ConcatArgumentsInTens(mainPanelDevice, DME_IDS) .. round(mainPanelDevice:get_argument_value(783),1))
 	else
 		ExportScript.Tools.SendData(2785, "OFF")
 	end
+end
+
+local LADDER_INIDCATOR_IDS = {860,868}
+local HUD_INIDCATOR_IDS = {154,159}
+function ExportScript.ReadCautionIndicators(mainPanelDevice)
+	for i=LADDER_INIDCATOR_IDS[1],LADDER_INIDCATOR_IDS[2] do
+		ExportScript.ReadBoolExportIn2K(mainPanelDevice,i)
+	end
+	for i=HUD_INIDCATOR_IDS[1],HUD_INIDCATOR_IDS[2] do
+		ExportScript.ReadBoolExportIn2K(mainPanelDevice,i)
+	end
+	ExportScript.ReadBoolExportIn2K(mainPanelDevice,147)
 end
 
 function ExportScript.ReadAllCustom(mainPanelDevice)
@@ -400,5 +412,6 @@ function ExportScript.ReadAllCustom(mainPanelDevice)
 	ExportScript.ReadFuelGauge(mainPanelDevice)
 	ExportScript.ReadNavComputer(mainPanelDevice)
 	ExportScript.ReadDME(mainPanelDevice)
+	ExportScript.ReadCautionIndicators(mainPanelDevice)
 end
 

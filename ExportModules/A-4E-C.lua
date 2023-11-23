@@ -190,6 +190,7 @@ function ExportScript.ProcessIkarusDCSConfigHighImportance(mainPanelDevice)
 	ExportScript.Tools.SendData(2000, string.format("%7.3f", lUHFRadio:get_frequency()/1000000)) -- <- special function for get frequency data
 	ExportScript.Tools.SendData(2000, ExportScript.Tools.RoundFreqeuncy((UHF_RADIO:get_frequency()/1000000))) -- ExportScript.Tools.RoundFreqeuncy(frequency (MHz|KHz), format ("7.3"), PrefixZeros (false), LeastValue (0.025))
 	]]
+	ExportScript.ReadStopWatch(mainPanelDevice)
 end
 
 function ExportScript.ProcessDACConfigHighImportance(mainPanelDevice)
@@ -204,6 +205,7 @@ function ExportScript.ProcessDACConfigHighImportance(mainPanelDevice)
 	ExportScript.Tools.SendDataDAC("2000", string.format("%7.3f", UHF_RADIO:get_frequency()/1000000))
 	ExportScript.Tools.SendDataDAC("2000", ExportScript.Tools.RoundFreqeuncy((UHF_RADIO:get_frequency()/1000000))) -- ExportScript.Tools.RoundFreqeuncy(frequency (MHz|KHz), format ("7.3"), PrefixZeros (false), LeastValue (0.025))
 	]]
+	ExportScript.ReadStopWatch(mainPanelDevice)
 end
 
 -----------------------------------------------------
@@ -295,6 +297,10 @@ end
 
 function convert_tens(num)
 	return math.floor(num*10)
+end
+
+function convert_time(val)
+	return math.floor(60 * val)
 end
 
 function ExportScript.ReadBoolExportIn2K(mainPanelDevice, ID)
@@ -401,6 +407,14 @@ function ExportScript.ReadCautionIndicators(mainPanelDevice)
 		ExportScript.ReadBoolExportIn2K(mainPanelDevice,i)
 	end
 	ExportScript.ReadBoolExportIn2K(mainPanelDevice,147)
+end
+
+function ExportScript.ReadStopWatch(mainPanelDevice)
+	local mins = convert_time(mainPanelDevice:get_argument_value(144))
+	local secs = convert_time(mainPanelDevice:get_argument_value(145))
+	
+	ExportScript.Tools.SendData(2144, mins .. "•" .. secs) --the DCS plugin for StreamDeck seems to do something strange with colons in the output
+	ExportScript.Tools.SendData(2145, mins .. ":" .. secs)
 end
 
 function ExportScript.ReadAllCustom(mainPanelDevice)

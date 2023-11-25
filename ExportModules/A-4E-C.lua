@@ -299,6 +299,10 @@ function convert_tens(num)
 	return math.floor(num*10)
 end
 
+function convert_tens2(num)
+	return round(num*10,0)
+end
+
 function convert_time(val)
 	return math.floor(60 * val)
 end
@@ -307,12 +311,16 @@ function ExportScript.ReadBoolExportIn2K(mainPanelDevice, ID)
 	ExportScript.Tools.SendData(2000 + ID, round(mainPanelDevice:get_argument_value(ID),0))
 end
 
-function ExportScript.ConcatArgumentsInTens(mainPanelDevice, arrayOfIDS)
+function ExportScript.InternalConcatArgumentInTens(mainPanelDevice, arrayOfIDS, roundingFunc)
 	ret = ""
 	for _,aID in ipairs(arrayOfIDS) do
-		ret = ret .. convert_tens( mainPanelDevice:get_argument_value(aID) )
+		ret = ret .. roundingFunc( mainPanelDevice:get_argument_value(aID) )
 	end
 	return ret
+end
+
+function ExportScript.ConcatArgumentsInTens(mainPanelDevice, arrayOfIDS)
+	return ExportScript.InternalConcatArgumentInTens(mainPanelDevice,arrayOfIDS, convert_tens)
 end
 
 function ExportScript.ReadHeadingSelect(mainPanelDevice)
@@ -391,7 +399,8 @@ local DME_IDS = {785,784}
 
 function ExportScript.ReadDME(mainPanelDevice)
 	if(mainPanelDevice:get_argument_value(786) > 0) then
-		ExportScript.Tools.SendData(2785, ExportScript.ConcatArgumentsInTens(mainPanelDevice, DME_IDS) .. round(mainPanelDevice:get_argument_value(783),1))
+		local singleval = round(mainPanelDevice:get_argument_value(785)*1000, 1)
+		ExportScript.Tools.SendData(2785,singleval)
 	else
 		ExportScript.Tools.SendData(2785, "OFF")
 	end

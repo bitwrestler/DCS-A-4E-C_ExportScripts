@@ -23,7 +23,7 @@ The purpose is so that Stream Deck, with the DCS plugin (https://github.com/ener
 </li>
 <li>/StreamDeck - StreamDeck profiles
     <ul>
-    <li>DCS - A4.steamDecProfile - Stream Deck XL profile for A4 using these exports</li>
+    <li>DCS - A4.streamDecProfile - Stream Deck XL profile for A4 using these exports</li>
     </ul>
 </li>
 </ul>

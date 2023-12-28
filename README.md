@@ -34,7 +34,7 @@ The A4 aircraft, like a few of the official ED aircraft, uses dynamic numbering 
 ## Known Issues
 <ol>
 <li>
-There is something strange about the ground Radar Mode knob and the Radar Tilt knob (left hand panel). Even though I believe the exports to be correct and the plane can be controlled (i.e. the knobs move when I hit a button on the Stream Deck and the correct values seem to be returned), those features do not actually function via the export. The Radar won't actually turn on or switch modes. The tilt doesn't actaully do anything. Nevertheless, the game controller setup works fine. So, in the supplied StreamDeck profile, I use a hot key to manipulate those controls instead of the normal DCS plugin route.
+There is something strange about the ground Radar Mode knob and the Radar Tilt knob (left hand panel). Even though I believe the exports to be correct and the plane can be controlled (i.e. the knobs move when I hit a button on the Stream Deck and the correct values seem to be returned), those features do not actually function via the export. The Radar won't actually turn on or switch modes. The tilt doesn't actually do anything. Nevertheless, the game controller setup works fine. So, in the supplied StreamDeck profile, I use a hot key to manipulate those controls instead of the normal DCS plugin route.
 </li>
 <li>
 The Radar Altimeter control and the Nav Computer controls are strange. They are buttons and rotation knobs in one. I could not figure out how to do both things with the Stream Deck DCS plugin. So, those are mapped with hotkey control binds.

@@ -320,7 +320,7 @@ function ExportScript.InternalConcatArgumentInTens(mainPanelDevice, arrayOfIDS, 
 end
 
 function ExportScript.ConcatArgumentsInTens(mainPanelDevice, arrayOfIDS)
-	return ExportScript.InternalConcatArgumentInTens(mainPanelDevice,arrayOfIDS, convert_tens)
+	return ExportScript.InternalConcatArgumentInTens(mainPanelDevice,arrayOfIDS, convert_tens2)
 end
 
 function ExportScript.ReadHeadingSelect(mainPanelDevice)
@@ -387,6 +387,14 @@ function ExportScript.ReadNavComputer(mainPanelDevice)
 	ExportScript.Tools.SendData(2191, ExportScript.ConcatArgumentsInTens(mainPanelDevice, DestLatIDS) .. latDirection)
 	ExportScript.Tools.SendData(2197,ExportScript.ConcatArgumentsInTens(mainPanelDevice, DestLonIDS) .. lonDirection)
 	
+	--[[
+	ExportScript.Tools.SendData(5197,mainPanelDevice:get_argument_value(197))
+	ExportScript.Tools.SendData(5198,mainPanelDevice:get_argument_value(198))
+	ExportScript.Tools.SendData(5199,mainPanelDevice:get_argument_value(199))
+	ExportScript.Tools.SendData(5200,mainPanelDevice:get_argument_value(200))
+	ExportScript.Tools.SendData(5201,mainPanelDevice:get_argument_value(201))
+	]]
+
 	ExportScript.Tools.SendData(2210, ExportScript.ConcatArgumentsInTens(mainPanelDevice, WindSpeedIDS))
 	ExportScript.Tools.SendData(2214, ExportScript.ConcatArgumentsInTens(mainPanelDevice, WindDirIDS))
 	
